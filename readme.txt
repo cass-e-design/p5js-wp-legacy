@@ -13,7 +13,26 @@ Local hosting & embedding of p5.js scripts directly in posts & pages using ifram
  
 == Description ==
 
-Local hosting & embedding of p5.js scripts directly in posts & pages using iframes & shortcode [p5jswp]
+Local hosting & embedding of p5.js scripts directly in posts & pages using iframes & shortcode [p5jswp].
+
+The shortcode [p5jswp] creates the following hierarchy:
+```
+<figure class="wp-block-image">
+    <iframe class="p5jswp">
+        <html>
+            <head>
+                <!-- optional libraries -->
+                <!-- optional css -->
+            </head>
+            <body>
+                <!-- script reference or script -->
+            </body>
+        </html>
+    </iframe>
+    <figcaption><!-- optional caption --></figcaption>
+</figure>
+```
+
 Attributes include:
 * **script**: hardcoded URL to a js file
 * **js**: literal javascript instead of an external file\*
@@ -21,9 +40,9 @@ Attributes include:
 * **width**: a width for the iframe. Remember to include units!
 * **height**: a height for the iframe. Remember to include units!
 * **caption**: Specify a caption inside the figure
-* **libraries**: space delimited list of hardcoded URLs to libraries to be included in the iframe's `<head>`
+* **libraries**: space delimited list of hardcoded URLs to libraries to be included in the iframe's `<head>`. The local copy of p5.min.js is automatically included.
 
-\*I've had to encode the js with [htmlspecialchars()](https://www.php.net/manual/en/function.htmlspecialchars.php) to avoid messing with html attribute (quoted string) this is all being included inside of. This could mess with script output, especially if you're modifying literal DOM strings
+\*I've had to encode the js with [htmlspecialchars()](https://www.php.net/manual/en/function.htmlspecialchars.php) to avoid messing with html attribute (quoted string) this is all being included inside of. This could mess with script output, especially if you're modifying DOM
 
 
 == Installation ==
