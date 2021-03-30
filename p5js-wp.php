@@ -71,7 +71,7 @@ function p5jswp_process_shortcode($attrs, $content) {
 			</html>');
 
 	$output = '<figure class="wp-block-image">
-		<iframe class="p5jswp" '.$width.' '.$height.'sandbox="allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-forms allow-modals" srcdoc="'.$iframe_interior.'"></iframe>';
+		<!--noptimize--><iframe class="p5jswp" '.$width.' '.$height.'sandbox="allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-forms allow-modals" srcdoc="'.$iframe_interior.'"></iframe><!--/noptimize-->';
 	
 		if (isset($attrs['caption'])) {
 		$output .= '<figcaption>' . $attrs['caption'] . '</figcaption>';
