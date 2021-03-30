@@ -37,8 +37,8 @@ Attributes include:
 * **script**: hardcoded URL to a js file
 * **js**: literal javascript instead of an external file\*
 * **css**: literal css included inside iframe
-* **width**: a width for the iframe. Remember to include units!
-* **height**: a height for the iframe. Remember to include units!
+* **width**: a width for the iframe. NB: This is in HTML, not CSS
+* **height**: a height for the iframe. NB: This is in HTML, not CSS
 * **caption**: Specify a caption inside the figure
 * **libraries**: space delimited list of hardcoded URLs to libraries to be included in the iframe's `<head>`. The local copy of p5.min.js is automatically included.
 

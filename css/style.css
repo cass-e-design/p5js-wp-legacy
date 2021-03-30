@@ -22,7 +22,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 .p5jswp {
 	border: none;
 	position: relative;
-	width: 100%;
-	height: auto;
 	transition: position .5s, width .5s, height .5s;
+}
+.p5jswp:not(.p5jswp-custom-width) {
+	width: 100%;
+}
+.p5jswp:not(.p5jswp-custom-height) {
+	height: 100%;
+	min-height: 200px;
 }
