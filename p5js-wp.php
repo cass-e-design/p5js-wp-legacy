@@ -38,10 +38,12 @@ function p5jswp_process_shortcode($attrs, $content) {
 
 	$script_itself = '';
 	if (isset($attrs['js'])) {
-		$script_itself = "<script>$attrs[js]</script>";
-	} else if (isset($attrs['script'])) {
-		$script_itself = "<script src=\"$attrs[script]\"></script>";
-	} else {
+		$script_itself .= "<script>$attrs[js]</script>";
+	}
+	if (isset($attrs['script'])) {
+		$script_itself .= "<script src=\"$attrs[script]\"></script>";
+	} 
+	if (empty($script_itself)) {
 		$script_itself = '<p>' . __('p5jswp: WARNING: No `script` or `js` attributes specified', 'p5js-wp') . '</p>';
 	}
 
