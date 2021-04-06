@@ -47,9 +47,9 @@ List of all possible attributes:
 
 \*I've had to encode everything literal inside the iframe with [htmlspecialchars()](https://www.php.net/manual/en/function.htmlspecialchars.php) to avoid messing with the html output. This could mess with script output, especially if you're modifying DOM.
 
-= Explanation =
+= Output =
 
-The shortcode [p5jswp] creates the following hierarchy (\<!-- HTML Comments explain where the plugin puts components-->):
+The shortcode [p5jswp] creates the following HTML hierarchy (\<!-- HTML Comments explain where the plugin puts components-->):
 ```
 <figure class="wp-block-image">
     <iframe class="p5jswp">
