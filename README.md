@@ -1,4 +1,4 @@
-=== p5.js WP ===
+# p5.js WP
 Contributors: cass-e
 Donate link: http://cass-e.net
 Tags: p5js, embed, iframe, javascript
@@ -11,15 +11,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
 Local hosting & embedding of p5.js scripts directly in posts & pages using iframes & shortcode
  
-== Description ==
+## Description
 
 Local hosting & embedding of p5.js scripts directly in posts & pages using iframes & shortcode [p5jswp].
 
-= Usage =
+### Usage
 
 This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanation of shortcodes, please see the [Wordpress Codex Page](https://codex.wordpress.org/Shortcode). For the usage of this shortcode, please see the usage examples below.
 
-= Usage Examples: Individual Attributes =
+#### Usage Examples: Individual Attributes
 
 * Using a JavaScript file: `[p5jswp script="<URL TO JavaScript FILE>"]`
 * Using inline JavaScript: `[p5jswp js="console.log(&quot;HELLO WORLD&quot;);"]` \*
@@ -29,12 +29,12 @@ This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanat
 
 All of these parameters can be used together.
 
-= Usage Examples: Complete =
+#### Usage Example: Complete
 
 * Using a javascript file located at https://javascript-file.js, a height of 512, a caption of "Hello World" 
 <br>`[p5jswp script="https://javascript-file.js" height="512" caption="Hello World"]`
 
-\*Note use of `&quot;` to prevent breaking the shortcode. Using a literal " inside the attribute would end it prematurely, like how a javascript string that looked like `' it's '` would end prematurely.**
+\*Note use of `&quot;` to prevent breaking the shortcode. Using a literal " inside the attribute like `js` would end it prematurely, like how a javascript string that looked like `' it's '` would end prematurely.**
 
 List of all possible attributes:
 * **script**: hardcoded URL to a js file
@@ -43,11 +43,11 @@ List of all possible attributes:
 * **width**: a width for the iframe. NB: This is in HTML, not CSS
 * **height**: a height for the iframe. NB: This is in HTML, not CSS
 * **caption**: Specify a caption inside the figure
-* **libraries**: space delimited list of hardcoded URLs to libraries to be included in the iframe's `<head>`. The local copy of p5.min.js is automatically included.
+* **libraries**: space delimited list of hardcoded URLs to libraries to be included in the iframe's `<head>`. The local copy of p5.min.js is automatically included.\*
 
 \*I've had to encode everything literal inside the iframe with [htmlspecialchars()](https://www.php.net/manual/en/function.htmlspecialchars.php) to avoid messing with the html output. This could mess with script output, especially if you're modifying DOM.
 
-= Explanation =
+### Explanation
 
 The shortcode [p5jswp] creates the following hierarchy:
 ```
@@ -67,32 +67,33 @@ The shortcode [p5jswp] creates the following hierarchy:
 </figure>
 ```
 
-== Installation ==
+## Installation
  
 1. Upload `p5js-wp` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
  
-== Frequently Asked Questions ==
+## Frequently Asked Questions
  
-= I can't find it in the block editor =
+### I can't find it in the block editor
 
 This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanation of shortcodes, please see the [Wordpress Codex Page](https://codex.wordpress.org/Shortcode). For the usage of this shortcode, please see the description.
 
-= What are the differences between this and other p5.js plugins? =
+### What are the differences between this and other p5.js plugins?
  
 This version should have very wide compatibility. It uses a shortcode, so it's not dependent on Gutenberg, and it should be compatible with very old versions of both PHP and WordPress.
  
-== Screenshots ==
  
-== Changelog ==
+## Screenshots
  
-= 1.0 =
+## Changelog
+ 
+### 1.0
 * Initial release. Moved to srcdoc attribute; added support for JS content saved in editor, css, etc.
  
-= 0.5 =
+### 0.5
 * Original version: Passed all content into the iframe via GET request
  
-== Upgrade Notice ==
+## Upgrade Notice
  
-= 1.0 =
+### 1.0
 Technically drops support for Internet Explorer. Oops.
