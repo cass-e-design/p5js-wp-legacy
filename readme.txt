@@ -21,9 +21,9 @@ This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanat
 
 = Usage Examples: Individual Attributes =
 
-* Using a JavaScript file: `[p5jswp script="<URL TO JavaScript FILE>"]`
+* Using a JavaScript file: `[p5jswp script="<URL TO JavaScript FILE>"]` Replace `<URL>` with the URL.
 * Using inline JavaScript: `[p5jswp js="console.log(&quot;HELLO WORLD&quot;);"]` \*
-* Using additional libraries: `[p5jswp libraries="<!-- URL--> <!--URL--> <!--URL-->"]` You can include one or more libraries by placing a space between the URLs. The URL can point to any online location - you can upload the library files to your site, or link to external files.
+* Using additional libraries: `[p5jswp libraries="<URL> <URL> <URL>"]` Replace `<URL>` with the URL. You can include one or more libraries by placing a space between multiple URLs. The URL can point to any online location - you can upload the library files to your site, or link to external files. The built-in p5.js library is always included.
 * Using inline CSS: `[p5jswp css="html { text-align: center; }` \*
 * Using a caption: `[p5jswp caption="Hello World"]` The caption can even include HTML if that html/any quotes inside it are properly escaped.
 
@@ -49,7 +49,7 @@ List of all possible attributes:
 
 = Explanation =
 
-The shortcode [p5jswp] creates the following hierarchy:
+The shortcode [p5jswp] creates the following hierarchy (\<!-- HTML Comments explain where the plugin puts components-->):
 ```
 <figure class="wp-block-image">
     <iframe class="p5jswp">
@@ -80,7 +80,7 @@ This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanat
 
 = What are the differences between this and other p5.js plugins? =
  
-This version should have very wide compatibility. It uses a shortcode, so it's not dependent on Gutenberg, and it should be compatible with very old versions of both PHP and WordPress.
+This version should have very wide compatibility. It uses a shortcode, so it's not dependent on Gutenberg, and it should be compatible with very old versions of both PHP and WordPress. The oldest versions supported are subject to change, but is a goal of the project.
  
 == Screenshots ==
  
