@@ -48,8 +48,8 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 		), $attrs);
 
 	$script_itself = '';
-		$script_itself .= "<script>$attrs[js]</script>";
 	if (!empty($attrs['js'])) {
+		$script_itself .= '<script>'.preg_replace('/<\/?(br|p)\s*\/?>/i', '', html_entity_decode($attrs['js'])).'</script>';
 	}
 	if (!empty($attrs['script'])) {
 		$script_itself .= "<script src=\"$attrs[script]\"></script>";
