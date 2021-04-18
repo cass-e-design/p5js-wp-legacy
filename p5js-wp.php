@@ -95,6 +95,16 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 	if (!empty($attrs['caption'])) {
 		$output .= "<figcaption>$attrs[caption]</figcaption>";
 	}
+	if (!empty($attrs['debug'])) {
+		$output .= "<figcaption class=\"p5jswp-debug\"><ul>";
+		foreach ($attrs as $key => $val) {
+			if (!empty($val))
+				$output .= "<li><em>$key:</em><code>$val</code></li>";
+			else
+				$output .= "<li><span style=\"text-decoration:line-through;\">$key</span></li>";
+		}
+		$output .= "</ul></figcaption>";
+	}
 
 	$output .= '</figure>';
 	return $output;

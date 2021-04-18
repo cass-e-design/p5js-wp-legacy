@@ -31,3 +31,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	height: 100%;
 	min-height: 200px;
 }
+
+.wp-block-image figcaption.p5jswp-debug {
+	text-align: left;
+	font-size: 0.75em;
+	margin: 0;
+	padding: 0;	
+}
+.p5jswp-debug ul {
+	margin: 0;
+}
