@@ -34,13 +34,24 @@ function p5jswp_styles() {
 }
 add_action('wp_enqueue_scripts', 'p5jswp_styles');
 
-function p5jswp_process_shortcode($attrs, $content) {
+function p5jswp_process_shortcode($attrs = [], $content = null) {
+	$attrs = array_change_key_case( (array) $attrs, CASE_LOWER );
+	$attrs = shortcode_atts(array( //defaults
+		'debug' => '',
+		'js' => '',
+		'script' => '',
+		'css' => '',
+		'width' => '',
+		'height' => '',
+		'caption' => '',
+		'libraries' => '',
+		), $attrs);
 
 	$script_itself = '';
-	if (isset($attrs['js'])) {
 		$script_itself .= "<script>$attrs[js]</script>";
+	if (!empty($attrs['js'])) {
 	}
-	if (isset($attrs['script'])) {
+	if (!empty($attrs['script'])) {
 		$script_itself .= "<script src=\"$attrs[script]\"></script>";
 	} 
 	if (empty($script_itself)) {
@@ -48,22 +59,22 @@ function p5jswp_process_shortcode($attrs, $content) {
 	}
 
 	$css = '<link rel="stylesheet" href="'.plugins_url('/css/iframe-style.css', __FILE__).'"/>';
-	if (isset($attrs['css'])) $css .= "<style>$attrs[css]</style>";
+	if (!empty($attrs['css'])) $css .= "<style>$attrs[css]</style>";
 	
 	$width = '';
 	$height = '';
 	$custom_size = '';
-	if (isset($attrs['width'])) {
+	if (!empty($attrs['width'])) {
 		$width = "width=\"$attrs[width]\"";
 		$custom_size .= 'p5jswp-custom-width';
 	} 
-	if (isset($attrs['height'])) {
+	if (!empty($attrs['height'])) {
 		$width = "height=\"$attrs[height]\"";
 		$custom_size .= ' p5jswp-custom-height';
 	}
 
 	$libraries = '';
-	if (isset($attrs['libraries']))
+	if (!empty($attrs['libraries']))
 		foreach (explode(' ', $attrs['libraries']) as $library)
 			$libraries .= "<script src=\"$library\"></script>";
 
@@ -81,7 +92,7 @@ function p5jswp_process_shortcode($attrs, $content) {
 	$output = "<figure class=\"wp-block-image\">
 		<!--noptimize--><iframe class=\"p5jswp $custom_size\" $width $height sandbox=\"allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-forms allow-modals\" srcdoc=\"$iframe_interior\"></iframe><!--/noptimize-->";
 	
-	if (isset($attrs['caption'])) {
+	if (!empty($attrs['caption'])) {
 		$output .= "<figcaption>$attrs[caption]</figcaption>";
 	}
 
