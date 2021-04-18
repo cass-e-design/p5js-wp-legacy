@@ -47,6 +47,7 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 		'libraries' => '',
 		), $attrs);
 
+	/* JS, SCRIPT */
 	$script_itself = '';
 	if (!empty($attrs['js'])) {
 		$script_itself .= '<script>'.preg_replace('/<\/?(br|p)\s*\/?>/i', '', html_entity_decode($attrs['js'])).'</script>';
@@ -58,11 +59,13 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 		$script_itself = '<p>' . __('p5jswp: WARNING: No `script` or `js` attributes specified', 'p5js-wp') . '</p>';
 	}
 
+	/* CSS */
 	$css = '<link rel="stylesheet" href="'.plugins_url('/css/iframe-style.css', __FILE__).'"/>';
 	if (!empty($attrs['css'])) 
 		$css .= '<style>'. preg_replace('/<\/?(br|p)\s*\/?>/i', '', $attrs['css']).'</style>';
 
 	
+	/* WIDTH, HEIGHT */
 	$width = '';
 	$height = '';
 	$custom_size = '';
@@ -75,11 +78,11 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 		$custom_size .= ' p5jswp-custom-height';
 	}
 
+	/* LIBRARIES */
 	$libraries = '';
 	if (!empty($attrs['libraries']))
 		foreach (explode(' ', $attrs['libraries']) as $library)
 			$libraries .= "<script src=\"$library\"></script>";
-
 	//default
 	$libraries .= '<script src="'.plugins_url('/js/p5.min.js', __FILE__).'"></script>';
 	
@@ -94,9 +97,11 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 	$output = "<figure class=\"wp-block-image\">
 		<!--noptimize--><iframe class=\"p5jswp $custom_size\" $width $height sandbox=\"allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-forms allow-modals\" srcdoc=\"$iframe_interior\"></iframe><!--/noptimize-->";
 	
+	/* CAPTION */
 	if (!empty($attrs['caption'])) {
 		$output .= "<figcaption>$attrs[caption]</figcaption>";
 	}
+	/* DEBUG */
 	if (!empty($attrs['debug'])) {
 		$output .= "<figcaption class=\"p5jswp-debug\"><ul>";
 		foreach ($attrs as $key => $val) {
