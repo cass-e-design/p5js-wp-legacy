@@ -101,8 +101,10 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 }
 add_shortcode('p5jswp', 'p5jswp_process_shortcode');
 
-//Move the smartcodes later on in the loading so that they don't mess with scripts
-remove_filter('the_content', 'wptexturize');
-add_filter('the_content', 'wptexturize', 99);		
+add_filter('no_texturize_shortcodes', 'p5jswp_no_texturize_shortcodes');	
+function p5jswp_no_texturize_shortcodes($shortcodes) {
+	$shortcodes []= 'p5jswp';
+	return $shortcodes;
+}
 
 ?>
