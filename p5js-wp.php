@@ -59,7 +59,9 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 	}
 
 	$css = '<link rel="stylesheet" href="'.plugins_url('/css/iframe-style.css', __FILE__).'"/>';
-	if (!empty($attrs['css'])) $css .= "<style>$attrs[css]</style>";
+	if (!empty($attrs['css'])) 
+		$css .= '<style>'. preg_replace('/<\/?(br|p)\s*\/?>/i', '', $attrs['css']).'</style>';
+
 	
 	$width = '';
 	$height = '';
