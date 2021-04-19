@@ -19,33 +19,36 @@ Local hosting & embedding of p5.js scripts directly in posts & pages using ifram
 
 This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanation of shortcodes, please see the [Wordpress Codex Page](https://codex.wordpress.org/Shortcode). For the usage of this shortcode, please see the usage examples below.
 
+I use <URL\> to indicate where a URL needs to go. You should replace the whole thing, including the <> brackets.
+
+= Special Characters =
+Encode all HTML Entities like '&amp;' (`&amp;`). If your script had any encoded characters before encoding, those should be encoded *twice*. (`&amp;amp;`). **If you don't encode something, WordPress will encode it, and then unencode all the quotes. Unhelpfully.**
+
+[Mathias Bynen's HTML Entity Encoder/Decoder](https://mothereff.in/html-entities) (Not affiliated) may help. Check 'allow named character references.'
+
+Additionally, any `<br>,<br/>,<p>,</p>` tags will be stripped out unless they're double-encoded (ie. `&amp;lt;br&amp;gt;` for `<br>`)
+
 = Inline JavaScript with the `js` attribute: =
-You can include javascript directly in the shortcode instead of linking to an external file with the `js` attribute. Wordpress makes this process a bit hacky since we're using a shortcode and not a custom block, but it mostly seems to work.
+You can embed javascript directly in the shortcode instead of linking to an external file with the `js` attribute. This is a bit hacky. **Make sure all special characters are encoded (see Special Characters).**
 
 *If you're having trouble with inline JavaScript, I recommend putting your javascript in a file and linking to it using the `script` attribute.*
-1) Encode all HTML special characters like '&amp;' (`&amp`). If your script had any HTML Entities before encoding, those should be encoded *twice*. (`&amp;amp;`). <br>**If you don't encode something, WordPress will redo the encoding. And it will do a bad job.**
-    - Check out [Mathias Bynen's HTML Entity Encoder/Decoder](https://mothereff.in/html-entities) (Not affiliated). Check 'allow named character references.'
-1) Any `<br>,<br/>,<p>,</p>` tags will be stripped out unless they're double-encoded (ie. `&amp;lt;br&amp;gt;` for `<br>`)
-
-= Inline CSS with the `css` attribute: =
-You can embed CSS directly in the shortcode to be included in the iframe's head with the `css` attribute. `<p>` and `<br>` are stripped like in the `js` attribute to allow multiline content here.
 
 = Usage Examples: Individual Attributes =
 
-* Using a JavaScript file: `[p5jswp script="<URL TO JavaScript FILE>"]` Replace `<URL>` with the URL.
-* Using inline JavaScript: `[p5jswp js="console.log(&quot;HELLO WORLD&quot;);"]` \*
+* Using a JavaScript file: `[p5jswp script="<URL>"]` Replace `<URL>` with the URL to your JavaScript file.
+* Using inline JavaScript: `[p5jswp js="console.log(&quot;HELLO WORLD&quot;);"]` This example should print "HELLO WORLD" in your browser console. Replace everything inside js="" with your own JavaScript.\*
 * Using additional libraries: `[p5jswp libraries="<URL>"]` (or `[p5jswp libraries="<URL> <URL>"]` etc.) Replace `<URL>`(s) with your URL(s). You can include more than one library by separating multiple URLs with a space. The URL can point to any online location. You can upload the library files to your site, or link to external files. The built-in p5.js library is always included.
-* Using inline CSS: `[p5jswp css="html { text-align: center; }` \*
+* Using inline CSS: `[p5jswp css="html { text-align: center; }` Replace everything inside css="" with your own CSS.\*
 * Using a caption: `[p5jswp caption="Hello World"]` The caption can even include HTML if that html/any quotes inside it are properly escaped.
 
 All of these parameters can be used together.
+
+\*Note use of \&quot; to prevent breaking the shortcode. Using a literal " inside the attribute would end it prematurely, like how a javascript string that looked like `' it's '` would end prematurely.**
 
 = Usage Examples: Complete =
 
 * Using a javascript file located at https://javascript-file.js, a height of 512, a caption of "Hello World" 
 <br>`[p5jswp script="https://javascript-file.js" height="512" caption="Hello World"]`
-
-\*Note use of `&quot;` to prevent breaking the shortcode. Using a literal " inside the attribute would end it prematurely, like how a javascript string that looked like `' it's '` would end prematurely.**
 
 List of all possible attributes:
 * **script**: Hardcoded URL to a JavaScript file for inclusion in the body.
@@ -53,7 +56,7 @@ List of all possible attributes:
 * **css**: Inline CSS included inside the iframe's head\*
 * **width**: Width for the iframe. NB: This is in HTML, not CSS
 * **height**: Height for the iframe. NB: This is in HTML, not CSS
-* **caption**: Caption to be included in a `<figcaption>`
+* **caption**: Caption to be included in a \<figcaption>
 * **libraries**: Space delimited list of hardcoded URLs for libraries/additional scripts to be included in the iframe. The local copy of p5.min.js is automatically included.
 * **debug**: Debug parameter per shortcode (use debug="true" to enable) that prints all attribute values inside the caption. Not intended for production.
 
@@ -92,7 +95,7 @@ This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanat
 
 = "This block contains unexpected or invalid content." =
 
-You forgot to convert something to an [HTML Entity](https://www.tutorialspoint.com/html/html_entities.htm) (ie. &, <, >, ', etc.) This isn't the end of the world - hit Attempt Block Recovery. This isn't the end of the world - hit Attempt Block Recovery. Wordpress will encode everything except quotes, which you'll need to re-encode to prevent breaking your shortcode.
+You forgot to convert something to an [HTML Entity](https://www.tutorialspoint.com/html/html_entities.htm) (ie. &, <, >, ', etc.) This isn't the end of the world - hit Attempt Block Recovery. Wordpress will encode everything except quotes, which you'll need to re-encode to prevent breaking your shortcode. See Special Characters under Usage.
 
 = What are the differences between this and other p5.js plugins? =
  
