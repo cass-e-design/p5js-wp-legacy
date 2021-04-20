@@ -56,7 +56,11 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 		$script_itself .= '<script>'.preg_replace(P5JSWP_STRIP_ATTRIBUTE, '', $attrs['js']).'</script>';
 	}
 	if (!empty($attrs['script'])) {
-		$script_itself .= "<script src=\"$attrs[script]\"></script>";
+		$attrs['script'] = preg_replace(P5JSWP_STRIP_ATTRIBUTE_LINES, ' ', $attrs['script']);
+
+		foreach (explode(' ', $attrs['script']) as $script_item)
+			if (!empty(trim($script_item)))
+				$script_itself .= "<script src=\"$script_item\"></script>";
 	} 
 	if (empty($script_itself)) {
 		$script_itself = '<p>' . __('p5jswp: WARNING: No `script` or `js` attributes specified', 'p5js-wp') . '</p>';
