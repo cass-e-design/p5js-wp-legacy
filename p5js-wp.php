@@ -34,6 +34,9 @@ function p5jswp_styles() {
 }
 add_action('wp_enqueue_scripts', 'p5jswp_styles');
 
+const P5JSWP_STRIP_ATTRIBUTE = '/<\/?(br|p)\s*\/?>/i';
+const P5JSWP_STRIP_ATTRIBUTE_LINES = '/<\/?(br|p|\r|\n)\s*\/?>/i';
+
 function p5jswp_process_shortcode($attrs = [], $content = null) {
 	$attrs = array_change_key_case( (array) $attrs, CASE_LOWER );
 	$attrs = shortcode_atts(array( //defaults
@@ -50,7 +53,7 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 	/* JS, SCRIPT */
 	$script_itself = '';
 	if (!empty($attrs['js'])) {
-		$script_itself .= '<script>'.preg_replace('/<\/?(br|p)\s*\/?>/i', '', html_entity_decode($attrs['js'])).'</script>';
+		$script_itself .= '<script>'.preg_replace(P5JSWP_STRIP_ATTRIBUTE, '', $attrs['js']).'</script>';
 	}
 	if (!empty($attrs['script'])) {
 		$script_itself .= "<script src=\"$attrs[script]\"></script>";
@@ -62,7 +65,8 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 	/* CSS */
 	$css = '<link rel="stylesheet" href="'.plugins_url('/css/iframe-style.css', __FILE__).'"/>';
 	if (!empty($attrs['css'])) 
-		$css .= '<style>'. preg_replace('/<\/?(br|p)\s*\/?>/i', '', $attrs['css']).'</style>';
+		$css .= '<style>'. preg_replace(P5JSWP_STRIP_ATTRIBUTE, '', $attrs['css']).'</style>';
+	$css = htmlspecialchars($css);
 
 	
 	/* WIDTH, HEIGHT */
@@ -80,19 +84,24 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 
 	/* LIBRARIES */
 	$libraries = '';
-	if (!empty($attrs['libraries']))
+	if (!empty($attrs['libraries'])) {
+		$attrs['libraries'] = preg_replace(P5JSWP_STRIP_ATTRIBUTE_LINES, ' ', $attrs['libraries']);
+
 		foreach (explode(' ', $attrs['libraries']) as $library)
-			$libraries .= "<script src=\"$library\"></script>";
+			if (!empty(trim($library)))
+				$libraries .= "<script src=\"$library\"></script>";
+	}
 	//default
 	$libraries .= '<script src="'.plugins_url('/js/p5.min.js', __FILE__).'"></script>';
+	$libraries = htmlspecialchars($libraries);
 	
 	//htmlspecialchars prevents contents of the scripts from interfering with the iframe
-	$iframe_interior = htmlspecialchars("<html>
+	$iframe_interior = "<html>
 				<head>$libraries $css</head>
 				<body>
 					$script_itself
 				</body>
-			</html>");
+			</html>";
 
 	$output = "<figure class=\"wp-block-image\">
 		<!--noptimize--><iframe class=\"p5jswp $custom_size\" $width $height sandbox=\"allow-scripts allow-pointer-lock allow-same-origin allow-popups allow-forms allow-modals\" srcdoc=\"$iframe_interior\"></iframe><!--/noptimize-->";
@@ -106,7 +115,7 @@ function p5jswp_process_shortcode($attrs = [], $content = null) {
 		$output .= "<figcaption class=\"p5jswp-debug\"><ul>";
 		foreach ($attrs as $key => $val) {
 			if (!empty($val))
-				$output .= "<li><em>$key:</em><code>$val</code></li>";
+				$output .= "<li><em>$key:</em>$val</li>";
 			else
 				$output .= "<li><span style=\"text-decoration:line-through;\">$key</span></li>";
 		}

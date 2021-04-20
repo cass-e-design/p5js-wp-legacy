@@ -22,11 +22,11 @@ This plugin adds a **shortcode**, not a Gutenberg Block. For a detailed explanat
 I use <URL\> to indicate where a URL needs to go. You should replace the whole thing, including the <> brackets.
 
 = Special Characters =
-Encode all HTML Entities like '&amp;' (`&amp;`). If your script had any encoded characters before encoding, those should be encoded *twice*. (`&amp;amp;`). **If you don't encode something, WordPress will encode it, and then unencode all the quotes. Unhelpfully.**
+Encode all HTML Entities like '&amp;' (`&amp;`). If your script had any HTML Entities beforehand, those should be encoded *twice*. (`&amp;amp;`). **If you don't encode something, WordPress will encode it, and then unencode all the quotes. Unhelpfully.**
 
 [Mathias Bynen's HTML Entity Encoder/Decoder](https://mothereff.in/html-entities) (Not affiliated) may help. Check 'allow named character references.'
 
-Additionally, any `<br>,<br/>,<p>,</p>` tags will be stripped out unless they're double-encoded (ie. `&amp;lt;br&amp;gt;` for `<br>`)
+Additionally, any `<br>,<br/>,<p>,</p>` tags will be stripped out unless they're encoded (ie. `&lt;br&gt;` for `<br>`)
 
 = Inline JavaScript with the `js` attribute: =
 You can embed javascript directly in the shortcode instead of linking to an external file with the `js` attribute. This is a bit hacky. **Make sure all special characters are encoded (see Special Characters).**
@@ -35,7 +35,7 @@ You can embed javascript directly in the shortcode instead of linking to an exte
 
 = Usage Examples: Individual Attributes =
 
-* Using a JavaScript file: `[p5jswp script="<URL>"]` Replace `<URL>` with the URL to your JavaScript file.
+* Using a JavaScript file: `[p5jswp script="<URL>"]` Replace `<URL>` with the URL to your JavaScript file. Example: [jQuery](https://code.jquery.com/jquery-3.6.0.js)
 * Using inline JavaScript: `[p5jswp js="console.log(&quot;HELLO WORLD&quot;);"]` This example should print "HELLO WORLD" in your browser console. Replace everything inside js="" with your own JavaScript.\*
 * Using additional libraries: `[p5jswp libraries="<URL>"]` (or `[p5jswp libraries="<URL> <URL>"]` etc.) Replace `<URL>`(s) with your URL(s). You can include more than one library by separating multiple URLs with a space. The URL can point to any online location. You can upload the library files to your site, or link to external files. The built-in p5.js library is always included.
 * Using inline CSS: `[p5jswp css="html { text-align: center; }` Replace everything inside css="" with your own CSS.\*
@@ -51,16 +51,16 @@ All of these parameters can be used together.
 <br>`[p5jswp script="https://javascript-file.js" height="512" caption="Hello World"]`
 
 List of all possible attributes:
-* **script**: Hardcoded URL to a JavaScript file for inclusion in the body.
-* **js**: Inline Javascript, usually instead of `script`\*
-* **css**: Inline CSS included inside the iframe's head\*
+* **script**: URL to a JavaScript file for inclusion in the body.
+* **js**: Inline Javascript for inclusion in the body.
+* **css**: Inline CSS included inside the iframe's head
 * **width**: Width for the iframe. NB: This is in HTML, not CSS
 * **height**: Height for the iframe. NB: This is in HTML, not CSS
 * **caption**: Caption to be included in a \<figcaption>
-* **libraries**: Space delimited list of hardcoded URLs for libraries/additional scripts to be included in the iframe. The local copy of p5.min.js is automatically included.
+* **libraries**: Space delimited list of URLs for libraries/additional scripts to be included in the iframe. The local copy of p5.min.js is automatically included.
 * **debug**: Debug parameter per shortcode (use debug="true" to enable) that prints all attribute values inside the caption. Not intended for production.
 
-\*I've had to encode everything inline inside the iframe with [htmlspecialchars()](https://www.php.net/manual/en/function.htmlspecialchars.php), in addition to more advanced filtering described above.
+All parameters are optional, but the Shortcode will produce a warning if both the `script` and `js` are unused.
 
 = Output =
 
